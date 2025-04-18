@@ -3,13 +3,12 @@ from zoneinfo import ZoneInfo
 from google.adk.agents import Agent
 
 def get_weather(city: str) -> dict:
-    """Retrieves the current weather report for a specified city.
+    """指定された都市の現在の天気予報を取得します。
 
     Args:
-        city (str): The name of the city for which to retrieve the weather report.
-
+        city (str): 天気予報を取得する都市の名前。
     Returns:
-        dict: status and result or error msg.
+        dict: ステータスと結果またはエラーメッセージ。
     """
     if city.lower() == "new york":
         return {
@@ -25,15 +24,14 @@ def get_weather(city: str) -> dict:
             "error_message": f"Weather information for '{city}' is not available.",
         }
 
-
 def get_current_time(city: str) -> dict:
-    """Returns the current time in a specified city.
+    """指定された都市の現在の時刻を返します。
 
     Args:
-        city (str): The name of the city for which to retrieve the current time.
+        city (str): 現在の時刻を取得する都市の名前。
 
     Returns:
-        dict: status and result or error msg.
+        dict: ステータスと結果またはエラーメッセージ。
     """
 
     if city.lower() == "new york":
@@ -53,15 +51,17 @@ def get_current_time(city: str) -> dict:
     )
     return {"status": "success", "report": report}
 
-
 root_agent = Agent(
-    name="weather_time_agent",
-    model="gemini-2.0-flash-exp",
+    name = "weather_timme_agent",
+    model="gemini-2.0-flash",
     description=(
-        "Agent to answer questions about the time and weather in a city."
+        "都市の時間と天気に関する質問に答えるエージェント。"
     ),
     instruction=(
-        "I can answer your questions about the time and weather in a city."
+        "あなたは、都市の時間と天気に関する質問に答えるエージェントです。"
+        "ユーザーからの質問に対して、適切な情報を提供してください。"
+        "質問は、都市名を含む場合があります。"
+        "質問が不明な場合は、ユーザーに尋ねてください。"
     ),
     tools=[get_weather, get_current_time],
 )
